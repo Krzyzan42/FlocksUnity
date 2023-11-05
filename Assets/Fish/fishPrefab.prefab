@@ -97,3 +97,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251e7d783bc09b4449a08cb440b5065e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxSpeed: 8
+  MaxAcceleration: 60
+  MaxTargetDistance: 5
+  Velocity: {x: 0, y: 0}
+  TargetDirection: {x: 0, y: 0}
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0

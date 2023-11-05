@@ -8,6 +8,6 @@ public class CursorTarget : MonoBehaviour
     
     void Update()
     {
-        fish.TargetPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        fish.TargetDirection = fish.Position + (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 }

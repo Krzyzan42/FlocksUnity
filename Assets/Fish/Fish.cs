@@ -11,22 +11,23 @@ public class Fish : MonoBehaviour
     public Vector2 Position { get => transform.position; set => transform.position = value; }
     public Vector2 Velocity;
 
-    public Vector2 TargetPosition;
+    public Vector2 TargetDirection;
     public Rect bounds;
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector2 targetDir = TargetPosition - Position;
-        if(targetDir.magnitude > 0.01f) {
-            float strength = Mathf.Clamp01(targetDir.magnitude / MaxTargetDistance);
+        if(TargetDirection.magnitude > 0.01f) {
+            float strength = Mathf.Clamp01(TargetDirection.magnitude / MaxTargetDistance);
             float acc = strength * MaxAcceleration;
-            targetDir.Normalize();
+            TargetDirection.Normalize();
 
-            Velocity = Vector2.ClampMagnitude(Velocity + acc * Time.fixedDeltaTime * targetDir, MaxSpeed);
+            Velocity = Vector2.ClampMagnitude(Velocity + acc * Time.fixedDeltaTime * TargetDirection, MaxSpeed);
         }
         Position += Time.fixedDeltaTime * Velocity;
         transform.up = Velocity;
+
+        KeepInBounds();
     }
 
     void KeepInBounds() {
