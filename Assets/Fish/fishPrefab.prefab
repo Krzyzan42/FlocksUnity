@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2516979042609673929}
   - component: {fileID: 5169188450981767511}
   - component: {fileID: 7436870411717254253}
+  - component: {fileID: 2024623886526503235}
   m_Layer: 0
   m_Name: fishPrefab
   m_TagString: Untagged
@@ -97,9 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 251e7d783bc09b4449a08cb440b5065e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxSpeed: 8
-  MaxAcceleration: 60
+  MaxSpeed: 4.98
+  MaxAcceleration: 107.6
   MaxTargetDistance: 5
+  tol: 4
   Velocity: {x: 0, y: 0}
   TargetDirection: {x: 0, y: 0}
   bounds:
@@ -108,3 +110,15 @@ MonoBehaviour:
     y: 0
     width: 0
     height: 0
+--- !u!114 &2024623886526503235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2043190427481576313}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3fe573f32184804aac655bf09c64358, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

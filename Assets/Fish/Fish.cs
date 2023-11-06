@@ -1,22 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Fish : MonoBehaviour
 {
     public float MaxSpeed = 10;
     public float MaxAcceleration = 100;
     public float MaxTargetDistance = 5;
+    public float tol = 4;
 
     public Vector2 Position { get => transform.position; set => transform.position = value; }
     public Vector2 Velocity;
 
     public Vector2 TargetDirection;
     public Rect bounds;
+    public CollisionDetectionParams collisionParams;
 
-    // Update is called once per frame
     void FixedUpdate()
     {
+        if(TargetDirection.magnitude < 0.01f)
+            TargetDirection = transform.up;
         if(TargetDirection.magnitude > 0.01f) {
             float strength = Mathf.Clamp01(TargetDirection.magnitude / MaxTargetDistance);
             float acc = strength * MaxAcceleration;
@@ -39,5 +43,54 @@ public class Fish : MonoBehaviour
             Position -= new Vector2(0, bounds.height);
         else if(Position.y < bounds.yMin)
             Position += new Vector2(0, bounds.height);
+    }
+
+    public bool CheckFrontDirectionForColisions() {
+        float angle = collisionParams.InitialAngle;
+
+        bool left = CheckObstacle(Rotate(transform.up, -angle));
+        bool middle = CheckObstacle(transform.up);
+        bool right = CheckObstacle(Rotate(transform.up, angle));
+        return left || middle || right;
+    }
+
+    private bool CheckObstacle(Vector2 direction) {
+        float distance = collisionParams.CheckDistance;
+        int sampling = collisionParams.Samples;
+
+        Vector2 sample = direction * distance / sampling;
+        Vector2 scanPosition = Position + sample;
+        for (int i = 0; i < sampling; i++)
+        {
+            if(!bounds.Contains(scanPosition)) 
+                return true;
+            if(Physics2D.OverlapPoint(scanPosition) != null)
+                return true;
+            scanPosition += sample;
+        }
+        return false;
+    }
+
+    private Vector2 Rotate(Vector2 v, float angle) {
+        return Quaternion.AngleAxis(angle, Vector3.forward) * v;
+    }
+
+    public Vector2 FindDirectionWithoutCollision() {
+        float angle = collisionParams.InitialAngle;
+        float angleInterval = collisionParams.AngleInterval;
+        float overangle = collisionParams.OverAngle;
+        
+        while (angle < 180)
+        {
+            Vector2 right = Rotate(transform.up, angle);
+            Vector2 left = Rotate(transform.up, -angle);
+
+            if(!CheckObstacle(right))
+                return Rotate(right, overangle);
+            if(!CheckObstacle(left))
+                return Rotate(left, -overangle);
+            angle += angleInterval;
+        }
+        return -transform.up;
     }
 }

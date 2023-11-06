@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
 public class Flock : MonoBehaviour
 {
-
     public int FishCount = 50;
     public float ScanRadius = 2;
     public float SeparationRadius = 1f;
@@ -14,14 +12,20 @@ public class Flock : MonoBehaviour
     public float AlignmentStrength = 4;
     public float SeparationStrength = 0.5f;
     public float SeparationScaling = 3;
+    public float CollisionAvoidanceStrength = 4;
 
+    // All of this is passed down to fish-------------------
+    public CollisionDetectionParams collisionParams;
+    public float MaxSpeed;
+    public float MaxTargetDistance;
+    public float MaxAcceleration;
+    //-----------------------------------------------------
 
     public Fish fishPrefab;
     public Rect bounds;
 
     private List<Fish> fishList;
 
-    // Start is called before the first frame update
     public void Start()
     {
         fishList = new List<Fish>(FishCount);
@@ -40,19 +44,25 @@ public class Flock : MonoBehaviour
         fish.Velocity = direction * speed;
         fish.TargetDirection = direction;
         fish.bounds = bounds;
+        fish.collisionParams = collisionParams;
         return fish;
     }
 
     public void Update()
     {
         foreach (Fish fish in fishList) {
+            fish.MaxAcceleration = MaxAcceleration;
+            fish.MaxSpeed = MaxSpeed;
+            fish.MaxTargetDistance = MaxTargetDistance;
+
             List<Tuple<Fish, float>> distances = GetDistances(fish, ScanRadius);
 
             Vector2 cohesion = GetCohesionVector(fish, distances);
             Vector2 alignment = GetAlignmentVector(fish, distances);
             Vector2 separation = GetSeparationVector(fish, distances);
+            Vector2 avoidance = GetAvoidanceVector(fish);
             
-            fish.TargetDirection = cohesion + alignment + separation;
+            fish.TargetDirection = cohesion + alignment + separation + avoidance;
         }
     }
 
@@ -114,5 +124,12 @@ public class Flock : MonoBehaviour
         separationVector /= distances.Count;
 
         return separationVector * SeparationStrength;
+    }
+
+    private Vector2 GetAvoidanceVector(Fish fish) {
+        if(fish.CheckFrontDirectionForColisions())
+            return fish.FindDirectionWithoutCollision() * CollisionAvoidanceStrength;
+        else
+            return Vector2.zero;
     }
 }
