@@ -37,7 +37,7 @@ public class Fish : MonoBehaviour
         Position += Time.fixedDeltaTime * Velocity;
         transform.up = Velocity;
 
-        KeepInBounds();
+        // KeepInBounds();
     }
 
     void KeepInBounds() {
