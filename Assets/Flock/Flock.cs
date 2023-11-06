@@ -35,7 +35,7 @@ public class Flock : MonoBehaviour
     }
 
     private Fish RandomFish() {
-        Fish fish = Instantiate(fishPrefab);
+        Fish fish = Instantiate(fishPrefab, transform);
         float x = Random.Range(bounds.xMin, bounds.xMax);
         float y = Random.Range(bounds.yMin, bounds.yMax);
         Vector2 direction = Random.insideUnitCircle;

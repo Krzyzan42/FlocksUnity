@@ -154,14 +154,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d362f1256fb2c4086cf3641e718d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 10.5, y: 5}
+  size: {x: 45, y: 20}
   center: {x: 0, y: 0}
-  resolution: {x: 1050, y: 500}
+  resolution: {x: 4500, y: 2000}
   origin: {x: 6, y: 12}
-  scale: 5
-  density: 0.426
-  fillColor: {r: 1, g: 1, b: 1, a: 1}
-  groundColor: {r: 0, g: 0, b: 0, a: 1}
+  scale: 11
+  density: 0.545
+  fillColor: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 1}
+  groundColor: {r: 0.13333334, g: 0.13333334, b: 0.13333334, a: 1}
 --- !u!23 &96909347
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -238,6 +238,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -263,7 +264,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.26666668, g: 0.26666668, b: 0.26666668, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -319,6 +320,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a1af8b34ec4a9c488aa9072599d950c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 4
+  map: {fileID: 96909346}
+  overreach: 0.5
+  maxSize: 10
+  minSize: 1
+  scrollSpeed: 1
 --- !u!1 &756970111
 GameObject:
   m_ObjectHideFlags: 0
@@ -349,7 +368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f70d1f30dc3a6c47a8a1812ed8c502c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FishCount: 50
+  FishCount: 300
   ScanRadius: 2
   SeparationRadius: 1
   CohesionStrength: 0.85
