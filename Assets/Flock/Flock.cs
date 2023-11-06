@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -23,8 +24,10 @@ public class Flock : MonoBehaviour
 
     public Fish fishPrefab;
     public Rect bounds;
+    public Map map;
 
     private List<Fish> fishList;
+    private GridOptimizer<Fish> fishGridOptimizer = new();
 
     public void Start()
     {
@@ -32,6 +35,11 @@ public class Flock : MonoBehaviour
         fishList = new List<Fish>(FishCount);
         for (int i = 0; i < FishCount; i++)
            fishList.Add(RandomFish());
+
+        fishGridOptimizer.GridStart = map.center - map.size / 2;
+        fishGridOptimizer.GridSize = map.size;
+        fishGridOptimizer.CellSize = ScanRadius;
+        fishGridOptimizer.AddAll(fishList);
     }
 
     private Fish RandomFish() {
@@ -51,6 +59,7 @@ public class Flock : MonoBehaviour
 
     public void Update()
     {
+        fishGridOptimizer.CalculateGrid();
         foreach (Fish fish in fishList) {
             fish.MaxAcceleration = MaxAcceleration;
             fish.MaxSpeed = MaxSpeed;
@@ -68,8 +77,10 @@ public class Flock : MonoBehaviour
     }
 
     private List<Tuple<Fish, float>> GetDistances(Fish fish, float maxDist) {
-        List<Tuple<Fish, float>> distances = new(FishCount-1);
-        foreach(Fish f in fishList) {
+        List<Fish> closeFish = fishGridOptimizer.GetEverythingAround(fish);
+
+        List<Tuple<Fish, float>> distances = new(closeFish.Count - 1);
+        foreach(Fish f in closeFish) {
             if(f == fish)
                 continue;
             
@@ -132,5 +143,9 @@ public class Flock : MonoBehaviour
             return fish.FindDirectionWithoutCollision() * CollisionAvoidanceStrength;
         else
             return Vector2.zero;
+    }
+
+    public List<Fish> GetAllFish() {
+        return fishList;
     }
 }
