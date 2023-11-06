@@ -17,6 +17,12 @@ public class Fish : MonoBehaviour
     public Rect bounds;
     public CollisionDetectionParams collisionParams;
 
+    private Map map;
+
+    void Awake() {
+        map = FindAnyObjectByType<Map>();
+    }
+
     void FixedUpdate()
     {
         if(TargetDirection.magnitude < 0.01f)
@@ -62,9 +68,7 @@ public class Fish : MonoBehaviour
         Vector2 scanPosition = Position + sample;
         for (int i = 0; i < sampling; i++)
         {
-            if(!bounds.Contains(scanPosition)) 
-                return true;
-            if(Physics2D.OverlapPoint(scanPosition) != null)
+            if(map.IsAWall(scanPosition))
                 return true;
             scanPosition += sample;
         }

@@ -23,7 +23,7 @@ public class DebugColors : MonoBehaviour
 
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
-        Vector3 p = fish.TargetDirection + fish.Position;
+        Vector3 p = Vector2.ClampMagnitude(fish.TargetDirection, fish.MaxTargetDistance) + fish.Position;
         Gizmos.DrawSphere(p, 0.1f);
     }
 }

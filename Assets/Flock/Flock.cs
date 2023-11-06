@@ -28,6 +28,7 @@ public class Flock : MonoBehaviour
 
     public void Start()
     {
+        Application.targetFrameRate = 60;
         fishList = new List<Fish>(FishCount);
         for (int i = 0; i < FishCount; i++)
            fishList.Add(RandomFish());
