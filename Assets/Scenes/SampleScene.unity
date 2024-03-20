@@ -154,12 +154,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d362f1256fb2c4086cf3641e718d61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  size: {x: 45, y: 20}
+  size: {x: 25, y: 10}
   center: {x: 0, y: 0}
   resolution: {x: 4500, y: 2000}
   origin: {x: 6, y: 12}
   scale: 11
-  density: 0.545
+  density: 0.484
   fillColor: {r: 0.16078432, g: 0.16862746, b: 0.23529412, a: 1}
   groundColor: {r: 0.40392157, g: 0.40392157, b: 0.40392157, a: 1}
 --- !u!23 &96909347
@@ -431,10 +431,10 @@ MonoBehaviour:
   fishPrefab: {fileID: 7436870411717254253, guid: f0ba4a0246a2ce14d9b770abc9f7e022, type: 3}
   bounds:
     serializedVersion: 2
-    x: -10
-    y: -5
-    width: 20
-    height: 10
+    x: -25
+    y: -10
+    width: 50
+    height: 20
   map: {fileID: 96909346}
 --- !u!4 &756970113
 Transform:
