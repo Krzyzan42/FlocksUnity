@@ -44,12 +44,16 @@ public class Flock : MonoBehaviour
 
     private Fish RandomFish() {
         Fish fish = Instantiate(fishPrefab, transform);
-        float x = Random.Range(bounds.xMin, bounds.xMax);
-        float y = Random.Range(bounds.yMin, bounds.yMax);
+        Vector2 position;
+        do {
+            float x = Random.Range(bounds.xMin, bounds.xMax);
+            float y = Random.Range(bounds.yMin, bounds.yMax);
+            position = new Vector2(x, y);
+        } while (map.IsAWall(position));
         Vector2 direction = Random.insideUnitCircle;
         float speed = Random.Range(0, fish.MaxSpeed);
 
-        fish.Position = new Vector2(x, y);
+        fish.Position = position;
         fish.Velocity = direction * speed;
         fish.TargetDirection = direction;
         fish.bounds = bounds;
