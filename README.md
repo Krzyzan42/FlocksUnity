@@ -9,7 +9,7 @@ The way this algorithm works, is each fish looks at the enviroment and other fis
 - **Seperation** - When 2 fish are too close together, they try to swim apart from each other
 - **Avoidance** - All fish try to avoid walls
 
-These four rules are everything needed to decide movement of each fish. How strong fish are affected by these can be changed inside Unity Editor.
+These four rules are everything that's needed to decide the movement of each fish. How strong fish are affected by these can be changed inside Unity Editor.
 
 ## Screeshots
 ![image](https://github.com/Krzyzan42/FlocksUnity/assets/100627976/01cac34a-8a5c-4864-8fa9-e918c345849a)
