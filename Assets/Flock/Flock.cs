@@ -20,6 +20,7 @@ public class Flock : MonoBehaviour
     public float MaxSpeed;
     public float MaxTargetDistance;
     public float MaxAcceleration;
+    public Color color1, color2;
     //-----------------------------------------------------
 
     public Fish fishPrefab;
@@ -58,6 +59,7 @@ public class Flock : MonoBehaviour
         fish.TargetDirection = direction;
         fish.bounds = bounds;
         fish.collisionParams = collisionParams;
+        fish.GetComponent<SpriteRenderer>().color = Color.Lerp(color1, color2, Random.value);
         return fish;
     }
 
